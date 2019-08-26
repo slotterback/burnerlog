@@ -8,6 +8,14 @@
         <h1>BurnerLog</h1>
         <h2>by Stevie Slotterback</h2>
         <h2>Copyright 2019</h2>
+        <p>
+            <a href="{{ url_for('main.index') }}">Home</a>
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('auth.login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+            {% endif %}
+        </p>
         <hr>
         {% block content %}{% endblock %}
     </body>
