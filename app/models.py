@@ -25,5 +25,6 @@ def load_user(id):
 class Customer(db.Model):
     id = db.Column( db.Integer, primary_key=True )
     customer_name = db.Column( db.String(128), index=True, unique=True )
+    customer_notes = db.Column( db.String(2048) )
 
 
