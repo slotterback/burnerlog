@@ -22,3 +22,8 @@ class User(UserMixin, db.Model):
 def load_user(id):
     return User.query.get(int(id))
 
+class Customer(db.Model):
+    id = db.Column( db.Integer, primary_key=True )
+    customer_name = db.Column( db.String(128), index=True, unique=True )
+
+
