@@ -7,3 +7,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
+
+class ReportForm(FlaskForm):
+    description = StringField('Job Description', validators=[DataRequired()])
+    actions = StringField('Action Taken', validators=[DataRequired()])
+    recommendations = StringField('Recommendations')
+    submit = SubmitField('Submit Report')
+
+
