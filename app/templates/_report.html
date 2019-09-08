@@ -1,7 +1,24 @@
 <table>
-    <tr valign="top">
-        <td>Job #: {{ report.id }}</td>
-        <td>Summary: {{ report.summary }}</td>
-        <td>Action Taken: {{ report.action }}</td>
+    <tr>
+        <td>Job #: </td>
+        <td>{{ report.id }}</td>
     </tr>
+    <tr>
+        <td>Date and Time: </td>
+        <td>{{ report.timestamp }}</td>
+    <tr>
+        <td>Summary: </td>
+        <td>{{ report.summary }}</td>
+    </tr>
+    <tr>
+        <td>Action Taken: </td>
+        <td>{{ report.action }}</td>
+    </tr>
+        <td>Recommendations: </td>
+        {% if not report.recommendation %}
+        <td>N/A</td>
+        {% else %}
+        <td>{{ report.recommendation }}</td>
+        {% endif %}
+    </tr> 
 </table>
