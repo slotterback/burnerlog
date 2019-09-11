@@ -43,4 +43,3 @@ class Report(db.Model):
     def __repr__(self):
         return '<Report {}>'.format(self.summary)
 
-

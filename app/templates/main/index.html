@@ -5,4 +5,5 @@
     {% for report in reports %}
         {% include '_report.html' %}<br>
     {% endfor %}
+    <a href="{{ url_for('main.write_report') }}">Write a New Report</a>
 {% endblock %}
