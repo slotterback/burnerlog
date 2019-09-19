@@ -25,8 +25,8 @@ def user(username):
 def write_report():
     form = ReportForm()
     if form.validate_on_submit():
-        report = Report(user_id=current_user.id, 
-                        customer_id=Customer.query.first_or_404().id,
+        report = Report(author=current_user, 
+                        customer=Customer.query.first_or_404(),
                         summary=form.summary.data,
                         action=form.action.data,
                         recommendation = form.recommendation.data)
