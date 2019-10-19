@@ -5,7 +5,12 @@
     </tr>
     <tr>
         <td>Customer: </td>
-        <td>{{ report.customer.customer_name }}</td>
+        <td>
+            <a href="{{ url_for('main.customer', 
+                                customer_name=report.customer.customer_name) }}">
+               {{ report.customer.customer_name}}
+            </a>
+        </td> 
     </tr>
     <tr>
         <td>Technician: </td>

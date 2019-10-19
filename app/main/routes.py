@@ -19,6 +19,11 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('user.html', user=user)
 
+@bp.route('/customer/<customer_name>')
+@login_required
+def customer(customer_name):
+    customer = Customer.query.filter_by(customer_name=customer_name).first_or_404()
+    return render_template('main/customer.html', customer=customer)
 
 @bp.route('/write_report', methods=['GET', 'POST'])
 @login_required
