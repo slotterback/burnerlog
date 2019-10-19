@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Register</h1>
+    <h1>Job Report</h1>
         <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
             {{ form.summary.label }}<br>
-            {{ form.summary(size=32) }}<br>
+            {{ form.summary(size=64) }}<br>
             {% for error in form.summary.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.action.label }}<br>
-            {{ form.action(size=32) }}<br>
+            {{ form.action(cols=64, rows=6) }}<br>
             {% for error in form.action.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.recommendation.label }}<br>
-            {{ form.recommendation(size=32) }}<br>
+            {{ form.recommendation(cols=64, rows=4) }}<br>
             {% for error in form.recommendation.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
