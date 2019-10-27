@@ -22,9 +22,16 @@ class User(UserMixin, db.Model):
     def getName(self):
         return self.username
 
+    #make certain that the name input is validated prior to use of method
     def setName(self, name):
         self.username = name
 
+    def getEmail(self):
+        return self.email
+    
+    #make certain that the email input is validated prior to use of method
+    def setEmail(self, email):
+        self.email = email
 
 @login.user_loader
 def load_user(id):

@@ -47,6 +47,14 @@ class UserModelCase(unittest.TestCase):
         u.setName(name2)
         self.assertEqual(u.getName(), name2)
 
+    def test_update_email(self):
+        email1 = 'test@yahoo.com'
+        email2 = 'test@gmail.com'
+        u = User(username = 'test', email=email1)
+        self.assertEqual(u.getEmail(), email1)
+        u.setEmail(email2)
+        self.assertEqual(u.getEmail(), email2)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
