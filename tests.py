@@ -39,6 +39,14 @@ class UserModelCase(unittest.TestCase):
         self.assertEqual(u, r.author)
         self.assertEqual(c, r.customer)
 
+    def test_update_username(self):
+        name1 = 'Steven'
+        name2 = 'April'
+        u = User(username=name1)
+        self.assertEqual(u.getName(), name1)
+        u.setName(name2)
+        self.assertEqual(u.getName(), name2)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
