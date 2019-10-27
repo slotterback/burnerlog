@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import unittest
 from app import create_app, db
-from app.models import User, Report
+from app.models import User, Report, Customer
 from config import Config
 
 
@@ -28,6 +28,17 @@ class UserModelCase(unittest.TestCase):
         self.assertFalse(u.check_password('dog'))
         self.assertTrue(u.check_password('cat'))
 
-    
+    def test_create_report(self):
+        u = User(username='susan')
+        c = Customer(customer_name='Building')
+        r = Report(author=u, 
+                   customer=c,
+                   summary="No Heat",
+                   action = "Turned on Boiler",
+                   recommendation = "N/A")
+        self.assertEqual(u, r.author)
+        self.assertEqual(c, r.customer)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
