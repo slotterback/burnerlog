@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 from app import db
 from app.auth import bp
 from app.auth.forms import LogInForm, RegistrationForm, \
-    ResetPasswordRequestForm, ResetPasswordForm
+    ResetPasswordRequestForm, ResetPasswordForm, UserUpdateName
 from app.models import User
 from app.auth.email import send_password_reset_email
 
@@ -48,6 +48,19 @@ def register():
     return render_template('auth/register.html', title='Register',
                            form=form)
 
+
+@bp.route('/user_update', methods=['GET', 'POST'])
+def user_update():
+    form = UserUpdateName()
+    if form.validate_on_submit():
+        if current_user.check_password(form.password.data):
+            current_user.setName(form.username.data)
+            db.session.commit()
+        else:
+            flash('Password is Invalid') 
+    return render_template('auth/user_update.html', title='Update Username',
+                           form=form)
+ 
 
 @bp.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
