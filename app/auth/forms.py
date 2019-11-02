@@ -43,6 +43,20 @@ class UserUpdateName(FlaskForm):
             raise ValidationError('Please choose a different name.')
 
 
+class UserUpdateEmail(FlaskForm):
+    email = StringField('New Email Address', 
+                        validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField('Confirm Password',
+                              validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Update')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email = email.data).first()
+        if user is not None:
+            raise ValidationError('Please choose a different email address.')
+
+
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Request Password Reset')
