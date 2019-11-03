@@ -58,9 +58,11 @@ def user_update():
             current_user.setName(form.username.data)
             db.session.commit()
         else:
-            flash('Password is Invalid') 
+            flash('Password is Invalid')
+        return redirect(url_for('main.user',username=current_user.getName()))
     return render_template('auth/user_update.html', title='Update Username',
                            form=form)
+
  
 @bp.route('/email_update', methods=['GET', 'POST'])
 def email_update():
@@ -71,6 +73,7 @@ def email_update():
             db.session.commit()
         else:
             flash('Password is Invalid')
+        return redirect(url_for('user', username=current_user.getName()))
     return render_template('auth/email_update.html', 
                            title='Update Email Address',
                            form=form)

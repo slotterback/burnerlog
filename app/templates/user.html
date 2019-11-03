@@ -2,6 +2,26 @@
 
 {% block content %}
     <h1>User: {{ user.username }}</h1>
+    <h2>Email Address: {{ user.email }}</h1>
+    <table>
+        <tr>
+            <td>
+                <a href="{{ url_for('auth.user_update') }}">
+                    Change Username
+                </a>
+            </td>
+            <td>
+                <a href="{{ url_for('auth.email_update') }}">
+                    Change Email Address
+                </a>
+            </td>
+            <td>
+                <a href="http://example.com">
+                    Change Password
+                </a>
+            </td>
+        </tr>
+    </table>
     <hr>
     <p>This is where their posts will go.</p>
 {% endblock %}
