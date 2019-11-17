@@ -55,6 +55,14 @@ class UserModelCase(unittest.TestCase):
         u.setEmail(email2)
         self.assertEqual(u.getEmail(), email2)
 
+    def test_active_status(self):
+        u = User()
+        self.assertTrue(u.isActive())
+        u.deactivateUser()
+        self.assertFalse(u.isActive())
+        u.activateUser()
+        self.assertTrue(u.isActive())
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

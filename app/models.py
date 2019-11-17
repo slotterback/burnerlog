@@ -8,7 +8,12 @@ class User(UserMixin, db.Model):
     username      = db.Column( db.String(64) , index=True, unique=True )
     email         = db.Column( db.String(120), index=True, unique=True )
     password_hash = db.Column( db.String(128) )
+    active        = db.Column( db.Boolean, default=1 )
     reports =  db.relationship('Report', backref='author', lazy='dynamic')
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        self.active = True
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -32,6 +37,16 @@ class User(UserMixin, db.Model):
     #make certain that the email input is validated prior to use of method
     def setEmail(self, email):
         self.email = email
+
+    def isActive(self):
+         return self.active
+
+    def activateUser(self):
+        self.active = True
+
+    def deactivateUser(self):
+        self.active = False
+
 
 @login.user_loader
 def load_user(id):
