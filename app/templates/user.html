@@ -3,6 +3,11 @@
 {% block content %}
     <h1>User: {{ user.username }}</h1>
     <h2>Email Address: {{ user.email }}</h1>
+    {% if user.isActive() %}
+    <h2>Active User</h2>
+    {% else %}
+    <h2>Inactive User</h2>
+    {% endif %}
     {% if user.username == current_user.username %}
     <table>
         <tr>
@@ -19,6 +24,11 @@
             <td>
                 <a href="http://example.com">
                     Change Password
+                </a>
+            </td>
+            <td>
+                <a href="{{ url_for('auth.active_update') }}">
+                    Change Active Status
                 </a>
             </td>
         </tr>

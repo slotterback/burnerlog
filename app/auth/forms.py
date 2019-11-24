@@ -56,6 +56,12 @@ class UserUpdateEmail(FlaskForm):
         if user is not None:
             raise ValidationError('Please choose a different email address.')
 
+class UserUpdateActive(FlaskForm):
+    active = BooleanField('Active')
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField('Confirm Password',
+                              validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Update')
 
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

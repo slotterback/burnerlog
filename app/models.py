@@ -8,7 +8,7 @@ class User(UserMixin, db.Model):
     username      = db.Column( db.String(64) , index=True, unique=True )
     email         = db.Column( db.String(120), index=True, unique=True )
     password_hash = db.Column( db.String(128) )
-    active        = db.Column( db.Boolean, default=1 )
+    active        = db.Column( db.Boolean, default = "True" )
     reports =  db.relationship('Report', backref='author', lazy='dynamic')
 
     def __init__(self, **kwargs):

@@ -5,7 +5,7 @@ from app import db
 from app.auth import bp
 from app.auth.forms import LogInForm, RegistrationForm, \
     ResetPasswordRequestForm, ResetPasswordForm, UserUpdateName, \
-    UserUpdateEmail
+    UserUpdateEmail, UserUpdateActive
 from app.models import User
 from app.auth.email import send_password_reset_email
 
@@ -73,10 +73,28 @@ def email_update():
             db.session.commit()
         else:
             flash('Password is Invalid')
-        return redirect(url_for('user', username=current_user.getName()))
+        return redirect(url_for('main.user', username=current_user.getName()))
     return render_template('auth/email_update.html', 
                            title='Update Email Address',
                            form=form)
+
+
+@bp.route('/active_update', methods=['GET', 'POST'])
+def active_update():
+    form = UserUpdateActive()
+    if form.validate_on_submit():
+        if current_user.check_password(form.password.data):
+            if form.active.data:
+                current_user.activateUser()
+            else:
+                current_user.deactivateUser()
+            db.session.commit()
+        else:
+            flash('Password is Invalid')
+        return redirect(url_for('main.user', username=current_user.getName()))
+    return render_template('auth/active_update.html',
+                           title='Update Active Status',
+                           form = form)
 
 
 @bp.route('/reset_password_request', methods=['GET', 'POST'])
