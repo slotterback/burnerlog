@@ -11,7 +11,8 @@ from app.models import User, Customer, Report
 @login_required
 def index():
     reports = Report.query.filter_by(user_id=current_user.id)
-    return render_template('main/index.html', reports=reports)
+    users = User.query.all()
+    return render_template('main/index.html', reports=reports, users= users)
 
 @bp.route('/user/<username>')
 @login_required
