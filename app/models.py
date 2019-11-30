@@ -59,6 +59,18 @@ class Customer(db.Model):
     customer_notes = db.Column( db.String(2048) )
     reports = db.relationship('Report', backref='customer', lazy='dynamic')
 
+    def getName(self):
+        return self.customer_name
+
+    def setName(self, name):
+        self.customer_name = name
+
+    def getNotes(self):
+        return self.customer_notes
+
+    def setNotes(self, notes):
+        self.customer_notes = notes
+
 
 class Report(db.Model):
     id = db.Column( db.Integer, primary_key=True )

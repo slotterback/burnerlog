@@ -12,7 +12,11 @@ from app.models import User, Customer, Report
 def index():
     reports = Report.query.filter_by(user_id=current_user.id)
     users = User.query.all()
-    return render_template('main/index.html', reports=reports, users= users)
+    customers = Customer.query.all()
+    return render_template('main/index.html',
+                           reports=reports, 
+                           users=users,
+                           customers=customers)
 
 @bp.route('/user/<username>')
 @login_required

@@ -5,6 +5,11 @@
     {% for user in users %}
         <a href="{{ url_for('main.user', username=user.getName())}}">{{ user.getName()}}</a><br>
     {% endfor %}
+    <h1>All Customers</h1>
+    {% for customer in customers %}
+        <a href="{{ url_for('main.customer', customer_name=customer.getName())}}">
+        {{ customer.getName()}}</a><br>
+    {% endfor %}
     <h1>Hi, {{current_user.username}}!</h1>
     {% for report in reports %}
         {% include '_report.html' %}<br>
