@@ -48,9 +48,9 @@ def update_customer(id):
                            customer=customer,
                            form=form)
 
-@bp.route('/write_report', methods=['GET', 'POST'])
+@bp.route('/create_report', methods=['GET', 'POST'])
 @login_required
-def write_report():
+def create_report():
     form = ReportForm()
     if form.validate_on_submit():
         report = Report(author=current_user, 
@@ -62,8 +62,8 @@ def write_report():
         db.session.commit()
         flash('Your report has been recorded!')
         return redirect(url_for('auth.login'))
-    return render_template('main/report.html', 
-                           title='Write Report',
+    return render_template('main/create_report.html', 
+                           title='Create Report',
                            form=form)
 
 @bp.route('/create_customer', methods=['GET', 'POST'])
@@ -82,4 +82,10 @@ def create_customer():
                            title='Create New Customer',
                            form=form)
 
- 
+@bp.route('/report/<int:id>')
+@login_required
+def report(id):
+    report = Report.query.filter_by(id=id).first_or_404()
+    return render_template('main/report.html', report = report)
+
+
