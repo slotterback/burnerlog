@@ -3,4 +3,5 @@
 {% block content %}
     <h1>Customer: {{ customer.customer_name }}</h1>
     <h2>{{customer.customer_notes }}</h2>
+    <a href="{{url_for('main.update_customer',id = customer.id)}}">Update</a>
 {% endblock %}

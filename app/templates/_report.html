@@ -6,8 +6,7 @@
     <tr>
         <td>Customer: </td>
         <td>
-            <a href="{{ url_for('main.customer', 
-                                customer_name=report.customer.customer_name) }}">
+            <a href="{{ url_for('main.customer', id=report.customer.id) }}">
                {{ report.customer.customer_name}}
             </a>
         </td> 

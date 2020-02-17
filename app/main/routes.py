@@ -1,9 +1,9 @@
 from datetime import datetime
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 from app import db
 from app.main import bp
-from app.main.forms import ReportForm
+from app.main.forms import ReportForm, CustomerForm
 from app.models import User, Customer, Report
 
 @bp.route('/')
@@ -24,11 +24,29 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('user.html', user=user)
 
-@bp.route('/customer/<customer_name>')
+@bp.route('/customer/<int:id>')
 @login_required
-def customer(customer_name):
-    customer = Customer.query.filter_by(customer_name=customer_name).first_or_404()
+def customer(id):
+    customer = Customer.query.filter_by(id=id).first_or_404()
     return render_template('main/customer.html', customer=customer)
+
+#todo: figure out how to pass the current customer to the route.
+@bp.route('/update_customer/<int:id>', methods=['GET','POST'])
+@login_required
+def update_customer(id):
+    customer = Customer.query.filter_by(id=id).first_or_404()
+    form = CustomerForm()
+    if request.method == 'GET':
+        form.name.data = customer.getName()
+        form.notes.data = customer.getNotes()
+    if form.validate_on_submit():
+        customer.setName(form.name.data)
+        customer.setNotes(form.notes.data)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    return render_template('main/update_customer.html', 
+                           customer=customer,
+                           form=form)
 
 @bp.route('/write_report', methods=['GET', 'POST'])
 @login_required
@@ -44,6 +62,24 @@ def write_report():
         db.session.commit()
         flash('Your report has been recorded!')
         return redirect(url_for('auth.login'))
-    return render_template('main/report.html', title='Write Report',
+    return render_template('main/report.html', 
+                           title='Write Report',
                            form=form)
 
+@bp.route('/create_customer', methods=['GET', 'POST'])
+@login_required
+def create_customer():
+    form = CustomerForm()
+    if form.validate_on_submit():
+        #todo: check for uniqueness
+        customer = Customer()
+        customer.setName(form.name.data)
+        customer.setNotes(form.notes.data)
+        db.session.add(customer)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    return render_template('main/create_customer.html',
+                           title='Create New Customer',
+                           form=form)
+
+ 

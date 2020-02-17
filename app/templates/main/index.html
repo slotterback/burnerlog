@@ -7,9 +7,11 @@
     {% endfor %}
     <h1>All Customers</h1>
     {% for customer in customers %}
-        <a href="{{ url_for('main.customer', customer_name=customer.getName())}}">
+        <a href="{{ url_for('main.customer', id=customer.id)}}">
         {{ customer.getName()}}</a><br>
     {% endfor %}
+    <br>
+    <a href="{{ url_for('main.create_customer')}}">Create New Customer</a><br>
     <h1>Hi, {{current_user.username}}!</h1>
     {% for report in reports %}
         {% include '_report.html' %}<br>
