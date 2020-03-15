@@ -18,17 +18,20 @@ def index():
                            users=users,
                            customers=customers)
 
+
 @bp.route('/user/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('user.html', user=user)
 
+
 @bp.route('/customer/<int:id>')
 @login_required
 def customer(id):
     customer = Customer.query.filter_by(id=id).first_or_404()
     return render_template('main/customer.html', customer=customer)
+
 
 #todo: figure out how to pass the current customer to the route.
 @bp.route('/update_customer/<int:id>', methods=['GET','POST'])
@@ -48,6 +51,7 @@ def update_customer(id):
                            customer=customer,
                            form=form)
 
+
 @bp.route('/create_report', methods=['GET', 'POST'])
 @login_required
 def create_report():
@@ -66,6 +70,7 @@ def create_report():
                            title='Create Report',
                            form=form)
 
+
 @bp.route('/create_customer', methods=['GET', 'POST'])
 @login_required
 def create_customer():
@@ -82,10 +87,32 @@ def create_customer():
                            title='Create New Customer',
                            form=form)
 
+
 @bp.route('/report/<int:id>')
 @login_required
 def report(id):
     report = Report.query.filter_by(id=id).first_or_404()
     return render_template('main/report.html', report = report)
+
+
+@bp.route('/update_report/<int:id>', methods=['GET', 'POST'])
+@login_required
+def update_report(id):
+    report = Report.query.filter_by(id=id).first_or_404()
+    form = ReportForm()
+    if request.method == 'GET':
+        form.summary.data = report.getSummary()
+        form.action.data = report.getAction()
+        form.recommendation.data = report.getRecommendation()
+    if form.validate_on_submit():
+        report.setSummary(form.summary.data)
+        report.setAction(form.action.data)
+        report.setRecommendation(form.recommendation.data)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    return render_template('main/update_report.html', 
+                           title='Update Report',
+                           report = report,
+                           form=form)
 
 

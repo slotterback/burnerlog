@@ -81,6 +81,25 @@ class Report(db.Model):
     action = db.Column( db.String(30000) )
     recommendation = db.Column( db.String(2048) )
     
+    def getSummary(self):
+        return self.summary
+
+    def setSummary(self, summary):
+        self.summary = summary
+
+    def getAction(self):
+        return self.action
+
+    def setAction(self, action):
+        self.action = action
+
+    def getRecommendation(self):
+        return self.recommendation
+
+    def setRecommendation(self, recommendation):
+        self.recommendation = recommendation
+
     def __repr__(self):
         return '<Report {}>'.format(self.summary)
+
 
